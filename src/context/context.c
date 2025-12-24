@@ -4,11 +4,11 @@
 extern context_t ctx_main;
 extern context_t ctx_thread;
 
-__attribute__((noreturn))
-void uthr_exit(void) {
-    context_switch(&ctx_thread, &ctx_main);
-    __builtin_unreachable();
-}
+// __attribute__((noreturn))
+// void uthr_exit(void) {
+//     context_switch(&ctx_thread, &ctx_main);
+//     __builtin_unreachable();
+// }
 
 // __attribute__((noreturn))
 // void uthr_exit(void) {
