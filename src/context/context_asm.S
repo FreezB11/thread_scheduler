@@ -2,10 +2,11 @@
 .type context_switch, @function
 
 context_switch:
-    # rdi = old context
-    # rsi = new context
+    # rdi = old
+    # rsi = new
 
-    # --- save old context ---
+    # Save callee-saved registers
+    mov %rsp, 0(%rdi)
     mov %rbx, 8(%rdi)
     mov %rbp, 16(%rdi)
     mov %r12, 24(%rdi)
@@ -13,14 +14,11 @@ context_switch:
     mov %r14, 40(%rdi)
     mov %r15, 48(%rdi)
 
-    # save stack ptr
-    mov %rsp, 0(%rdi)
-
-    # save rip (next intruction)
-    mov (%rsp), %rax
+    # Save resume RIP
+    leaq 1f(%rip), %rax
     mov %rax, 56(%rdi)
 
-    # --- load new context ---
+    # Restore new context
     mov 0(%rsi), %rsp
     mov 8(%rsi), %rbx
     mov 16(%rsi), %rbp
@@ -31,3 +29,6 @@ context_switch:
     mov 56(%rsi), %rax
 
     jmp *%rax
+
+1:
+    ret

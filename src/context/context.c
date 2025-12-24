@@ -1,5 +1,6 @@
 #include "context.h"
 #include <stdlib.h>
+#include "../../include/uthr.h"
 
 extern context_t ctx_main;
 extern context_t ctx_thread;
@@ -18,7 +19,7 @@ extern context_t ctx_thread;
 //     exit(0);
 // }
 
-__attribute__((noreturn))
+// __attribute__((noreturn))
 void thread_trampoline(void) {
     void (*fn)(void *);
     void *arg;

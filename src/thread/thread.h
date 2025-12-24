@@ -1,6 +1,6 @@
 /// @file: thread.h
 #pragma once
-#include "context/context.h"
+#include "../context/context.h"
 #include "../../include/uthr.h"
 
 typedef enum{
@@ -14,5 +14,5 @@ typedef struct uthr_thread{
     thread_state    state;
     context_t       context;
     void            *stack;
-    struct thread   *next;
+    struct uthr_thread   *next;
 }uthr_thread_t;

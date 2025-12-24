@@ -32,7 +32,7 @@ static uthr_thread_t *dequeue(){
     run_queue = run_queue->next;
     return t;
 }
-
+// __attribute__((noreturn))
 void uthr_exit(void){
     current->state = THREAD_DONE;
     context_switch(&current->context, &scheduler_ctx);
@@ -59,4 +59,27 @@ int uthr_create(void(*fn)(void *), void *arg){
     );
 
     enqueue(t);
+
+    return t->id;
+}
+
+void uthr_yield(void){
+    current->state = THREAD_READY;
+    enqueue(current);
+    context_switch(&current->context, &scheduler_ctx);
+}
+
+void scheduler_run(){
+    context_switch(&scheduler_ctx, &scheduler_ctx);
+
+    while((current = dequeue()) != NULL){
+        if(current->state == THREAD_DONE){
+            free(current->stack);
+            free(current);
+            continue;
+        }
+
+        current->state = THREAD_RUNNING;
+        context_switch(&scheduler_ctx, &current->context);
+    }
 }

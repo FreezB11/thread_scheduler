@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 // #include <cstdint>
 
 typedef struct uthr_thread uthr_thread_t;
@@ -10,4 +11,5 @@ int uthr_create(void (*fn)(void*), void *arg);
 void uthr_yield(void);
 void uthr_sleep(uint64_t ms);
 void uthr_join(uthr_thread_t *t);
+// __attribute__((noreturn)) 
 void uthr_exit(void);
