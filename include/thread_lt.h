@@ -27,6 +27,6 @@ typedef struct thread_lt
 void init();
 thread_lt* thread_create(void (*entry)(void*), void *arg);
 void thread_exit();
-void thread_yeild();
+void thread_yield();
 void thread_sleep(uint64_t ms);
 void thread_join(thread_lt *t);

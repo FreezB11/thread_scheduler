@@ -76,13 +76,13 @@ int main() {
     int *c1_arg = malloc(sizeof(int)); *c1_arg = 1;
     thread_lt *t2 = thread_create(consumer, c1_arg);
     
-    int *p2_arg = malloc(sizeof(int)); *p2_arg = 2;
-    thread_lt *t3 = thread_create(producer, p2_arg);
+    // int *p2_arg = malloc(sizeof(int)); *p2_arg = 2;
+    // thread_lt *t3 = thread_create(producer, p2_arg);
 
     // Main thread acts as a supervisor or simply waits
     thread_join(t1);
     thread_join(t2);
-    thread_join(t3);
+    // thread_join(t3);
 
     printf("All threads finished. Exiting.\n");
     return 0;

@@ -46,3 +46,32 @@ context_switch:
     /* 3. JUMP TO NEW RIP */
     movq 56(%rsi), %rax    /* Load new RIP */
     jmp *%rax              /* Jump! */
+
+/* 
+ * void thread_trampoline(void)
+ * This is the entry point for every new thread.
+ * We expect:
+ *   R12 = Function Pointer
+ *   R13 = Argument
+ */
+.global thread_trampoline
+.type thread_trampoline, @function
+thread_trampoline:
+    /* We are here because context_switch JMP'd to us.
+       RSP is already set to the new thread's stack.
+       R12 and R13 hold our data. */
+    
+    /* Call fn(arg) */
+    /* System V ABI: 1st arg in RDI */
+    movq %r13, %rdi  /* Move arg (R13) to RDI */
+    
+    /* Ensure stack is 16-byte aligned before call */
+    /* We came from JMP, not CALL, so RSP is 16-byte aligned (from context_init) */
+    
+    call *%r12       /* Call fn() */
+    
+    /* If fn returns, we exit */
+    call thread_exit
+    
+    /* Should never return */
+    hlt
