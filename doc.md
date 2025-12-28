@@ -176,7 +176,7 @@ To stay correct:
 This is similar to:
 * disabling interrupts in kernels
 
-## Raw Assembly Context Switching (Phase 5)
+## Raw Assembly Context Switching
 This is the professional leap.\
 You manually:
 * save callee-saved registers
@@ -188,7 +188,7 @@ This removes:
 * overhead
 * unpredictability
 
-## M:N Scheduling (Phase 6)
+## M:N Scheduling
 Problem
 
 Single OS thread = single core.
