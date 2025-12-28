@@ -16,7 +16,7 @@ EX_DIR  = examples
 TEST_DIR = tests
 
 # Linker flags for using our own library
-LDFLAGS = -L$(LIB_DIR) -lthread_lt -no-pie
+LDFLAGS = -L$(LIB_DIR) -lthread_lt -no-pie -Wl,-rpath=./$(LIB_DIR)
 
 # ==========================================
 # Files
