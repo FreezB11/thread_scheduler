@@ -1,4 +1,4 @@
-# 🧵 Thread Scheduler (libthread_lt)
+# Thread Scheduler (libthread_lt)
 
 A lightweight, educational userspace threading library for Linux. This project implements core operating system concepts—context switching, scheduling, and synchronization—completely in user space using C and Assembly.
 
@@ -8,7 +8,7 @@ It is designed for students, systems programmers, and anyone curious about how t
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Userspace Context Switching**: Implemented in x86_64 Assembly without relying on `ucontext.h`.
 - **Preemptive Scheduling**: Round-robin scheduler with signal-based preemption.
@@ -34,7 +34,7 @@ make lib/libthread_lt.a
 
 text
 
-## 📦 Usage
+## Usage
 
 You can use **libthread_lt** in your own projects by including the header and linking the library.
 
@@ -85,13 +85,12 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
 ./my_app
 ```
 
-## 📚 Documentation
+## Documentation
 
 For a deep dive into the internal design, scheduler logic, and assembly implementation, please read the full documentation:
+**[Read the Documentation (doc.md)](doc.md)**
 
-👉 **[Read the Documentation (doc.md)](doc.md)**
-
-## 🧪 Running Tests & Benchmarks
+## Running Tests & Benchmarks
 
 The project includes several built-in examples and benchmarks to test scheduler performance.
 ```bash
