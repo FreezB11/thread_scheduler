@@ -60,9 +60,9 @@ extern void thread_trampoline();
 //     ctx->r15 = 0;
 // }
 void context_init(context_t *ctx, void (*fn)(void *), void *arg, void *stack_top) {
-    // 1. Align stack to 16 bytes
+    //align stack to 16 bytes
     uint64_t *sp = (uint64_t *)((uintptr_t)stack_top & ~0xF);
-    
+    sp = (uint64_t *)((uint64_t)sp - 8);
     // 2. Setup the struct
     ctx->rsp = (uint64_t)sp;
     ctx->rip = (uint64_t)thread_trampoline; // When we switch to this, JMP here

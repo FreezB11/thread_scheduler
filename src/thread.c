@@ -15,7 +15,8 @@ void thread_yield(){
 void thread_sleep(uint64_t ms){
     current_thread->state = THREAD_SLEEPING;
     current_thread->sleep_ms = current_time_ms() + ms;
-    queue_push(&sleep_queue, current_thread);
+    queue_push_sorted(&sleep_queue, current_thread);
+    // queue_push(&sleep_queue, current_thread);
     schedule();
 }
 
@@ -52,7 +53,8 @@ void thread_exit(){
 thread_lt* thread_create(void (*fn)(void*), void *arg){
     // printf("creating thread\n");
     thread_lt *t = (thread_lt*)malloc(sizeof(thread_lt));
-    t->id = nxt_tid++;
+    // t->id = nxt_tid++;
+    t->id = atomic_fetch_add(&nxt_tid, 1);
     t->state = THREAD_READY;
 
     t->joiner = NULL;

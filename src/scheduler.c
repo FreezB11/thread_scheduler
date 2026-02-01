@@ -5,12 +5,12 @@
 #include <stdio.h>
 
 // Global Definitions
-thread_lt    *current_thread = NULL;
-thread_lt    *main_thread    = NULL;
+__thread     thread_lt    *current_thread = NULL;
+__thread     thread_lt    *main_thread    = NULL;
 queue        ready_queue     = {NULL, NULL};
 queue        sleep_queue     = {NULL, NULL};
 queue        zombie_queue    = {NULL, NULL};
-int          nxt_tid         = 1;
+atomic_int   nxt_tid         = 1;
 
 // Helper to process sleep queue (extracted for clarity)
 static void check_sleepers() {
@@ -39,7 +39,7 @@ void schedule(){
     // We check if:
     //  a) We hit 64 ticks (periodic check)
     //  b) Ready queue is empty (nothing else to do, might as well check)
-    static int tick = 0;
+    static __thread int tick = 0;
     if ((++tick & 63) == 0 || !ready_queue.head) {
         check_sleepers();
     }

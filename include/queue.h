@@ -10,3 +10,5 @@ typedef struct{
 void queue_push(queue *q, thread_lt *t);
 thread_lt* queue_pop(queue* q);
 void queue_remove(queue *q, thread_lt *target);
+
+void queue_push_sorted(queue *q, thread_lt *t);

@@ -43,3 +43,23 @@ void queue_remove(queue *q, thread_lt *t){
         t->next = NULL;
     }
 }
+
+void queue_push_sorted(queue *q, thread_lt *t){
+    interrupts_disable();
+    if(!q->head || t->sleep_ms < q->head->sleep_ms){
+        t->next = q->head;
+        q->head = t;
+        if(!q->tail) q->tail = t;
+        interrupts_enable();
+        return;
+    }
+
+    thread_lt *prev = q->head;
+    while(prev->next && prev->next->sleep_ms <= t->sleep_ms) prev = prev->next;
+
+    t->next = prev->next;
+    prev->next - t;
+    if(!t->next) q->tail = t;
+
+    interrupts_enable();
+}

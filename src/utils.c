@@ -5,6 +5,10 @@
 #include <stdint.h>
 #include <linux/time.h>
 
+
+static __thread int interrupt_depth = 0;
+static __thread sigset_t saved_mask;
+
 uint64_t current_time_ms() {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
@@ -12,13 +16,19 @@ uint64_t current_time_ms() {
 }
 
 void interrupts_disable() {
-    sigset_t mask;
-    sigfillset(&mask); // Block ALL signals
-    sigprocmask(SIG_BLOCK, &mask, NULL);
+    if(interrupt_depth == 0){
+        sigset_t mask;
+        sigfillset(&mask); // Block ALL signals
+        sigprocmask(SIG_BLOCK, &mask, &saved_mask);
+    }
+    interrupt_depth++;   
 }
 
 void interrupts_enable() {
-    sigset_t mask;
-    sigemptyset(&mask); // Unblock ALL
-    sigprocmask(SIG_SETMASK, &mask, NULL);
+    if(interrupt_depth > 0){
+        interrupt_depth--;
+        if(interrupt_depth == 0){
+            sigprocmask(SIG_SETMASK, &saved_mask, NULL);
+        }
+    }
 }
