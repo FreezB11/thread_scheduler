@@ -110,5 +110,9 @@ Contributions are welcome! Whether it's fixing bugs, improving the scheduler alg
 4. Push to the branch (`git push origin feature/amazing-feature`).
 5. Open a Pull Request.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=FreezB11/thread_scheduler&type=date&legend=top-left)](https://www.star-history.com/#FreezB11/thread_scheduler&type=date&legend=top-left)
+
 ---
 *Created by [FreezB11](https://github.com/FreezB11)*
