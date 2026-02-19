@@ -58,7 +58,7 @@ void queue_push_sorted(queue *q, thread_lt *t){
     while(prev->next && prev->next->sleep_ms <= t->sleep_ms) prev = prev->next;
 
     t->next = prev->next;
-    prev->next - t;
+    prev->next = t;
     if(!t->next) q->tail = t;
 
     interrupts_enable();

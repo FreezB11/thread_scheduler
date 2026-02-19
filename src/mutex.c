@@ -48,10 +48,11 @@ void mutex_lock(mutex_t *m){
     current_thread->state = THREAD_BLOCKED;
     queue_push(&m->wait_queue, current_thread);
 
-    //premption enable
-    interrupts_enable();
     //schedule
     schedule();
+
+    //premption enable
+    interrupts_enable();
 }
 
 void mutex_unlock(mutex_t *m){

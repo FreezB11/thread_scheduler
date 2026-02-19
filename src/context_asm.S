@@ -1,17 +1,3 @@
-/*
- * context.S - The Engine Room
- * 
- * We assume struct context_t layout:
- *   offset 0:  rsp
- *   offset 8:  rbx
- *   offset 16: rbp
- *   offset 24: r12
- *   offset 32: r13
- *   offset 40: r14
- *   offset 48: r15
- *   offset 56: rip  <-- CRITICAL
- */
-
 .global context_switch
 .type context_switch, @function
 
@@ -54,24 +40,12 @@ context_switch:
  *   R12 = Function Pointer
  *   R13 = Argument
  */
+/*
 .global thread_trampoline
 .type thread_trampoline, @function
 thread_trampoline:
-    /* We are here because context_switch JMP'd to us.
-       RSP is already set to the new thread's stack.
-       R12 and R13 hold our data. */
-    
-    /* Call fn(arg) */
-    /* System V ABI: 1st arg in RDI */
     movq %r13, %rdi  /* Move arg (R13) to RDI */
-    
-    /* Ensure stack is 16-byte aligned before call */
-    /* We came from JMP, not CALL, so RSP is 16-byte aligned (from context_init) */
-    
     call *%r12       /* Call fn() */
-    
-    /* If fn returns, we exit */
     call thread_exit
-    
-    /* Should never return */
     hlt
+*/

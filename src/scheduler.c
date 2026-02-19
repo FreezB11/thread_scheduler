@@ -94,7 +94,8 @@ void schedule(){
             queue_push(&ready_queue, prev);
         }
 
-        context_switch(&prev->ctx, &current_thread->ctx);
+        // context_switch(&prev->ctx, &current_thread->ctx);
+        context_switch(&prev->ctx, &next->ctx);
     }
 
     interrupts_enable();

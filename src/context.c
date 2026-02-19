@@ -15,9 +15,9 @@ void context_capture(context_t *ctx) {
         "mov %%r13, 32(%0)\n"
         "mov %%r14, 40(%0)\n"
         "mov %%r15, 48(%0)\n"
-        "leaq 1f(%%rip), %%rax\n"
-        "mov %%rax, 56(%0)\n"
-        "1:\n"
+        "leaq 1f(%%rip), %%rax\n" // we load addr of label 1
+        "mov %%rax, 56(%0)\n" // save as rip
+        "1:\n" // label: resume pt
         :
         : "r"(ctx)
         : "rax", "memory"

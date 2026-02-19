@@ -3,14 +3,14 @@
 #include <stdint.h>
 
 typedef struct context {
-    uint64_t rsp;
-    uint64_t rbx;
-    uint64_t rbp;
-    uint64_t r12;
-    uint64_t r13;
-    uint64_t r14;
-    uint64_t r15;
-    uint64_t rip;
+    uint64_t rsp; //stack ptr
+    uint64_t rbx; // calle saved reg
+    uint64_t rbp;// frame ptr
+    uint64_t r12;//callee daved (we use fn)
+    uint64_t r13;//calle saved (we use arg here)
+    uint64_t r14;//callee saved
+    uint64_t r15;//callee save
+    uint64_t rip;// instructn ptr
 } context_t;
 
 void context_init(context_t *ctx, void (*fn)(void *), void *arg, void *stack_top);
